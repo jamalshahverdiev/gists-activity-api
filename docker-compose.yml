@@ -1,0 +1,14 @@
+version: '3'
+services:
+  pythonapp:
+    container_name: pipedrive
+    labels:
+      NAME: "pipedrive"
+    restart: always
+    build: ./
+    environment:
+      PIPEDRIVE_API_TOKEN: "change_api_token_here"
+    volumes:
+      - ./templates:/app/templates:cached
+    ports:
+      - 8080:8080
