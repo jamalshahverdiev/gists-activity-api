@@ -25,7 +25,7 @@ $ terraform init
 $ terraform apply -auto-approve
 ```
 ### Test endpoint
-Get instance public DNS name of with the following command:
+Get instance public DNS name with the following command:
 ```bash
 $ terraform output public_dns
 ```
