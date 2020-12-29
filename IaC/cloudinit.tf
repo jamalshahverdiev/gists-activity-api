@@ -2,6 +2,7 @@ data "template_file" "docker-init" {
   template = file("scripts/container-init.sh")
   vars = {
     API_TOKEN          = var.PIPEDIVE_API_TOKEN
+    MY_PUBLIC_IP       = local.ifconfig_co_json.ip
   }
 }
 
