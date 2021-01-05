@@ -21,5 +21,23 @@ def usersActivity():
     else:
         return "Required parameter: username", 404
 
+
+@app.route('/users', methods=['GET'])
+@ip_access
+@auth_required
+def getAllUsers():
+    formattedUserNames = []
+    dirPathToSearch = "{}/{}".format(os.path.dirname(os.path.abspath(__file__)), 'templates/')
+    extensionsToSearch = ['html']
+
+    file_names = [fn for fn in os.listdir(dirPathToSearch)
+                  if any(fn.endswith(ext) for ext in extensionsToSearch)]
+    
+    for name in file_names:
+        formattedUserNames.append(name.replace('.html', ''))
+    
+    return str(formattedUserNames)
+
+
 if __name__ == '__main__':
     app.run(debug=False, host='0.0.0.0', port=8080)
