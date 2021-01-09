@@ -13,7 +13,6 @@ wget https://github.com/docker/compose/releases/download/$dockerComposeVersion/d
 
 if [ -z "${MY_PUBLIC_IP}" -o -z "${API_TOKEN}" ]
 then
-      echo "\$MY_PUBLIC_IP or \$API_TOKEN variable is empty" >> ~/variables-status.txt
       echo "MY Public IP: ${MY_PUBLIC_IP} || My API Token: ${API_TOKEN}" >> ~/variables-status.txt
 else
       echo "\$MY_PUBLIC_IP and \$API_TOKEN variables are NOT empty" >> ~/variables-status.txt
