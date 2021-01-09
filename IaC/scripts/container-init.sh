@@ -18,5 +18,5 @@ else
       echo "\$MY_PUBLIC_IP and \$API_TOKEN variables are NOT empty" >> ~/variables-status.txt
 fi
 
-git clone --branch cron-in-docker 'https://github.com/jamalshahverdiev/gists-activity-api.git' $cloneFolder && sed -i "s/replace_api_token/${API_TOKEN}/g" $cloneFolder/check_users_activity.py && cd $cloneFolder && docker-compose up -d
+git clone 'https://github.com/jamalshahverdiev/gists-activity-api.git' $cloneFolder && sed -i "s/replace_api_token/${API_TOKEN}/g" $cloneFolder/check_users_activity.py && cd $cloneFolder && docker-compose up -d
 echo "${MY_PUBLIC_IP}" > $cloneFolder/templates/access_list.txt
