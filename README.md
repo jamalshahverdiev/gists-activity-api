@@ -12,12 +12,12 @@ You have the following tools installed on your computer:
 - Clone repository 
 - Set GitHub Gist user names in the `check_users_activity.py` in the variable `usernames`. 
 - Set username and password login credentials in the `separated_func_file.py` file in lines `5` and `6`.
-- Create new `s3` bucket with the name defined inside of the `IaC/backend.tf` file.
+- Create new `s3` bucket with the name defined in the `IaC/backend.tf` file.
 - Change `public_key_path` and `private_key_path` variables to set public and private key path of EC2 instance in the `IaC/vars.tf`.
 - Set `aws_access_key_id` and `aws_secret_access_key` variable values with the `aws configure`  command. Otherwise you need to set this variable values inside of the `IaC/terraform.tfvars` file. 
-- Set ssh username of EC2 instance inside `IaC/vars.tf` file as the value of `INSTANCE_USERNAME` variable.
-- Set  `PIPEDIVE_API_TOKEN` inside of `IaC/terraform.tfvars` file which will be used to replace string of `check_users_activity.py` inside of the EC2 instance (variable comes via `IaC/scripts/container-init.sh` script). `PIPEDIVE_API_TOKEN` token taken from PipeDrive user profile settings.
-- Your public IP address automatically will be written to the `templates/access list.txt` (It is access list file to use API) file. You can add other Public IP addresses as the source after deployment of EC2 instance inside `/root/gistapidir/templates/access list.txt` file. 
+- Set ssh username of EC2 instance in the `IaC/vars.tf` file as the value of `INSTANCE_USERNAME` variable.
+- Set `PIPEDIVE_API_TOKEN` inside of `IaC/terraform.tfvars` file which will be used to replace string of `check_users_activity.py` in the EC2 instance (variable comes via `IaC/scripts/container-init.sh` script). `PIPEDIVE_API_TOKEN` token taken from PipeDrive user profile settings.
+- Your public IP address automatically will be written to the `templates/access list.txt` (It is access list file to use API) file. You can add other Public IP addresses as the source after deployment of EC2 instance in `/root/gistapidir/templates/access list.txt` file. 
 ### Infrastructure deployment
 ```bash
 $ cd IaC
@@ -34,7 +34,9 @@ You can test `/activity` endpoint with `username` parameter to get gist activity
 $ curl -u 'pipedrive:pipedrive' -XGET 'http://terraform_output_public_dns:8080/activity?username=unixidzero'
 ```
 ### Code details
-  Deployment prepares docker container inside of the `EC2` instance  with `docker-compose`. 
-  As the provision code `terraform` uses `scripts/container-init.sh` script. Script installs needed packages and then execute `docker-compose up` command inside of the cloned folder of all code files. Then it is going to add cron for the `check_users_activity.py` script to get activities of GitHub users for all public gists (CRON execute this script each `3` hours).
-  Inside of EC2 instance `docker-compose.yml` file uses `Dockerfile` to build container with the exposed port `8080`.
-**Note**: Log output of the crontab you can find in the home folder of the root user `~/cron.log` file in the EC2 instance.
+  Deployment prepares docker containers inside of the `EC2` instance  with `docker-compose`. 
+  As the provision code `terraform` uses `scripts/container-init.sh` script. Script installs needed packages and then execute `docker-compose up` command inside of the cloned folder of all code files. In the `cronjob` container `ENTRYPOINT` will be `check_users_activity.py` script to get activities of GitHub users for all public gists (CRON execute this script each `3` hours).
+  In EC2 instance `docker-compose.yml` file creates two docker containers. One of them `pipedrive` with the exposed port `8080` and another one `cronjob`.
+  
+**Note**: Log output of the crontab you can find inside of the `cronjob` container `/tmp/cron.log` file.
+

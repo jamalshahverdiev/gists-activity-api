@@ -23,7 +23,7 @@ resource "null_resource" "wait_for_cloudinit" {
     state=1
     while [[ "$state" != 0 ]] ; do
       sleep 30
-      echo "Still waiting WEB start"
+      echo "INFO: Still waiting for WEB start"
       curl -s -XGET http://${aws_instance.ec2instance.public_ip}:8080
       state=$(echo $?)
     done

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import requests, json, os.path
 from separated_func_file import createGistStruct, replaceInFile, openFileToIterate, getGistNamesFromFile, deleteLine, postToPipeDrive, putDeletePipeDrive, getIdByTitle, createPostObjects
 
