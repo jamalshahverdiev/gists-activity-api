@@ -10,8 +10,5 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(
 apt update
 apt-get install -y docker-ce docker-ce-cli containerd.io
 wget https://github.com/docker/compose/releases/download/$dockerComposeVersion/docker-compose-Linux-x86_64 -O /bin/docker-compose && chmod +x /bin/docker-compose
-git clone --branch cron-in-docker 'https://github.com/jamalshahverdiev/gists-activity-api.git' $cloneFolder && cd $cloneFolder && docker-compose up -d
+git clone --branch cron-in-docker 'https://github.com/jamalshahverdiev/gists-activity-api.git' $cloneFolder && sed -i "s/replace_api_token/${API_TOKEN}/g" $cloneFolder/check_users_activity.py && cd $cloneFolder && docker-compose up -d
 echo "${MY_PUBLIC_IP}" > $cloneFolder/templates/access_list.txt
-sed -i "s/replace_api_token/${API_TOKEN}/g" $cloneFolder/check_users_activity.py
-#echo "0  */3    * * *   root    $cloneFolder/check_users_activity.py >> ~/cron.log 2>&1" >> /etc/crontab
-#systemctl restart cron
