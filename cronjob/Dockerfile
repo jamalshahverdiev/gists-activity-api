@@ -7,5 +7,5 @@ RUN pip install -r requirements.txt
 #    setcap cap_setgid=ep /bin/busybox
 #USER nobody
 RUN mkdir /tmp/crontabs \
-    && echo 'SHELL=/bin/sh' > /tmp/crontabs/root && echo '0 */3 * * * /app/check_users_activity.py >> /tmp/cron.log 2>&1'  >> /tmp/crontabs/root 
+    && echo 'SHELL=/bin/sh' > /tmp/crontabs/root && echo '* * * * * /app/check_users_activity.py >> /tmp/cron.log 2>&1'  >> /tmp/crontabs/root 
 CMD ["crond", "-c", "/tmp/crontabs", "-l", "8", "-d", "0", "-f"] 
