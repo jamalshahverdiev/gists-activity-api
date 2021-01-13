@@ -16,7 +16,7 @@ You have the following tools installed on your computer:
 - Change `public_key_path` and `private_key_path` variables to set public and private key path of EC2 instance in the `IaC/vars.tf`.
 - Set `aws_access_key_id` and `aws_secret_access_key` variable values with the `aws configure`  command. Otherwise you need to set this variable values inside of the `IaC/terraform.tfvars` file. 
 - Set ssh username of EC2 instance in the `IaC/vars.tf` file as the value of `INSTANCE_USERNAME` variable.
-- Set `PIPEDIVE_API_TOKEN` inside of `IaC/terraform.tfvars` file which will be used to replace string of `check_users_activity.py` in the EC2 instance (variable comes via `IaC/scripts/container-init.sh` script). `PIPEDIVE_API_TOKEN` token taken from PipeDrive user profile settings.
+- Set `PIPEDIVE_API_TOKEN` inside of `IaC/terraform.tfvars` file which will be used as `ENVIRONMENT` variable (`docker-compose` file get this env variable inside of the `cronjob` docker container) inside `check_users_activity.py` in the EC2 instance (variable comes via `IaC/scripts/container-init.sh` script). `PIPEDIVE_API_TOKEN` token taken from PipeDrive user profile settings.
 - Your public IP address automatically will be written to the `templates/access list.txt` (It is access list file to use API) file. You can add other Public IP addresses as the source after deployment of EC2 instance in `/root/gistapidir/templates/access list.txt` file. 
 ### Infrastructure deployment
 ```bash
