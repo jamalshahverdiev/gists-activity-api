@@ -9,6 +9,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
 add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 apt update
 apt-get install -y docker-ce docker-ce-cli containerd.io
+export API_TOKEN=${API_TOKEN}
 wget https://github.com/docker/compose/releases/download/$dockerComposeVersion/docker-compose-Linux-x86_64 -O /bin/docker-compose && chmod +x /bin/docker-compose
 
 if [ -z "${MY_PUBLIC_IP}" -o -z "${API_TOKEN}" ]
