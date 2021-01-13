@@ -12,8 +12,6 @@ services:
       NAME: "pipedrive"
     restart: always
     build: ./
-    environment:
-      PIPEDRIVE_API_TOKEN: "change_api_token_here"
     <<: *xvolumefunc
     ports:
       - 8080:8080
@@ -21,6 +19,8 @@ services:
     container_name: cronjob
     labels:
       NAME: "cronjob"
+    environment:
+      PIPEDRIVE_API_TOKEN: ${API_TOKEN}
     build:
       context: .
       dockerfile: cronjob/Dockerfile
