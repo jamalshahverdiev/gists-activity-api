@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import requests, json, os.path
+import requests, json, os.path, os
 from separated_func_file import createGistStruct, replaceInFile, openFileToIterate, getGistNamesFromFile, deleteLine, postToPipeDrive, putDeletePipeDrive, getIdByTitle, createPostObjects
 
 formattedFilePath = "{}/{}".format(os.path.dirname(os.path.abspath(__file__)), 'templates/output.txt')
@@ -8,7 +8,7 @@ gitHubSite='https://api.github.com'
 data = {}
 url = 'https://api.pipedrive.com/v1/deals'
 headers = {'content-type': 'application/json'}
-token = 'replace_api_token'
+token = os.environ.get('PIPEDRIVE_API_TOKEN')
 params = {'api_token': token }
 
 for username in userNames:
